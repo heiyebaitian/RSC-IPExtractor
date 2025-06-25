@@ -1,15 +1,24 @@
 import re
+import requests
 
-def extract_ip_addresses(file_path, output_file=None):
+def extract_ip_addresses(url, output_file=None):
     ip_list = []
     pattern = re.compile(r'dst-address=([\d\./]+)')
 
-    with open(file_path, 'r', encoding='utf-8') as file:
-        for line in file:
-            if 'add action=lookup' in line:
-                match = pattern.search(line)
-                if match:
-                    ip_list.append(match.group(1))
+    # 发送请求获取文件内容
+    try:
+        response = requests.get(url)
+        response.raise_for_status()  # 如果响应状态码不是200，抛出异常
+    except requests.RequestException as e:
+        print(f"下载文件失败: {e}")
+        return
+    
+    # 处理响应文本
+    for line in response.text.splitlines():
+        if 'add action=lookup' in line:
+            match = pattern.search(line)
+            if match:
+                ip_list.append(match.group(1))
 
     result = ';'.join(ip_list)
 
@@ -22,7 +31,7 @@ def extract_ip_addresses(file_path, output_file=None):
 
 
 if __name__ == '__main__':
-    input_rsc_file = 'unicom_latest.rsc'
+    rsc_url = 'http://ros.tcp5.com/table/unicom_latest.rsc'
     output_txt_file = 'extracted_ips.txt'
 
-    extract_ip_addresses(input_rsc_file, output_txt_file)
+    extract_ip_addresses(rsc_url, output_txt_file)
