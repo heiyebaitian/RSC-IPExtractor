@@ -6,6 +6,8 @@ RSC-IPExtractor is a lightweight CLI tool designed to extract IP addresses from 
 
 Ideal for network management, firewall rules, routing policies, and more.
 
+This script was created to help extract IP address lists from .rsc files for use in Unifi policy routing, as direct import of such files is not supported.
+
 ## 🛠 Features
 ✅ Download .rsc files directly from remote URLs
 
