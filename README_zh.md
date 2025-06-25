@@ -1,7 +1,7 @@
 # 🌐 RSC-IPExtractor
 **Read this in other languages: [English](README.md), [中文](README_zh.md).**
 
-## 📌 Overview
+## 📌 简介
 RSC-IPExtractor 是一个轻量级命令行工具，用于从 RouterOS 的 .rsc 配置脚本中提取 IP 地址列表。支持自动从远程服务器下载不同运营商（联通、电信、移动）的规则表，并将匹配到的 dst-address 提取为以分号分隔的字符串输出或保存至文件。
 
 适用于网络管理、路由策略维护等场景，可快速获取黑名单、白名单或策略路由所需的 IP 列表。
